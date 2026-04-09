@@ -1,0 +1,69 @@
+.resizable-container {
+    --handle-width: 12px;
+    --border-color: #ccc;
+    --hover-color: #999;
+    --active-color: orange;
+    min-width: 100px;
+    position: relative;
+    padding: 1em;
+    padding-right: calc(1em + 0.5em);
+    border: 1px solid var(--border-color);
+    background-color: #fefefe;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.1) 2px 2px 7px;
+}
+
+.resizable-container__handle {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    bottom: -1px;
+    width: var(--handle-width);
+    border: 1px solid var(--border-color);
+    background-color: rgb(248, 248, 248);
+    cursor: grab;
+}
+
+.resizable-container__dots {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    gap: 4px;
+}
+
+.resizable-container__dot {
+    --dot-size: 3px;
+    --dot-color: var(--border-color);
+    width: var(--dot-size);
+    height: var(--dot-size);
+    border-radius: 50%;
+    background-color: var(--dot-color);
+}
+
+.resizable-container__handle:hover {
+    background-color: color(
+        from var(--hover-color) srgb calc(r + 0.35) calc(g + 0.35)
+            calc(b + 0.35)
+    );
+    border-color: var(--hover-color);
+
+    .resizable-container__dot {
+        --dot-color: var(--hover-color);
+    }
+}
+
+.resizable-container__handle:active {
+    background-color: color(
+        from var(--active-color) xyz calc(x + 0.4) calc(y + 0.4) calc(z + 0.4)
+    );
+    border-color: var(--active-color);
+    cursor: grabbing;
+
+    .resizable-container__dot {
+        --dot-color: var(--active-color);
+    }
+}

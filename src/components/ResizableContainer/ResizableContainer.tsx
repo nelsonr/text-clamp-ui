@@ -3,9 +3,13 @@ import "./ResizableContainer.css";
 
 interface ResizableContainerProps {
   children: React.ReactNode;
+  onFullWidth?: () => void;
 }
 
-export function ResizableContainer({ children }: ResizableContainerProps) {
+export function ResizableContainer({
+  children,
+  onFullWidth,
+}: ResizableContainerProps) {
   const [maxWidth, setMaxWidth] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -25,6 +29,10 @@ export function ResizableContainer({ children }: ResizableContainerProps) {
     const diff = ev.clientX - clientXRef.current;
     const width = containerWidthRef.current + diff;
     const finalWidth = Math.min(width, maxWidth);
+
+    if (finalWidth === maxWidth && onFullWidth) {
+      onFullWidth();
+    }
 
     containerRef.current!.style.width = `${finalWidth}px`;
   };
